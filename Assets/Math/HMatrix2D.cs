@@ -8,26 +8,24 @@ public class HMatrix2D
 
     public HMatrix2D()
     {
-        // Initialize the matrix to the identity matrix using the setIdentity method.
+        // Initialize the matrix to the identity matrix using the setIdentity method
         setIdentity();
     }
 
     public HMatrix2D(float[,] multiArray)
     {
-        // Initialize the matrix using the provided 2D array.
-        if (multiArray.GetLength(0) == 3 && multiArray.GetLength(1) == 3)
+        for (int y = 0; y < 3; y++) // Do for each row
         {
-            entries = multiArray;
-        }
-        else
-        {
-            // Handle incorrect array dimensions (you may want to throw an exception).
+            for (int x = 0; x < 3; x++) // Do for each column
+            {
+                entries[y, x] = multiArray[y, x]; // Filling the entries with corresponding values from multiArray
+            }
         }
     }
 
     public HMatrix2D(float m00, float m01, float m02, float m10, float m11, float m12, float m20, float m21, float m22)
     {
-        // Initialize the matrix with individual elements.
+        // Initialize the matrix with individual elements
         entries = new float[3, 3]
         {
             {m00, m01, m02},
@@ -36,81 +34,126 @@ public class HMatrix2D
         };
     }
 
-    //public static HMatrix2D operator +(HMatrix2D left, HMatrix2D right)
-    //{
-        //return // your code here
-    //}
+    public static HMatrix2D operator +(HMatrix2D left, HMatrix2D right)
+    {
+        HMatrix2D result = new HMatrix2D();
+        for (int y = 0; y < 3; y++) // Loop thru rows
+        {
+            for (int x = 0; x < 3; x++) // Loop thru columns
+            {
+                result.entries[y, x] = left.entries[y, x] + right.entries[y, x];
+            }
+        }
+        return result;
+    }
 
-   // public static HMatrix2D operator -(HMatrix2D left, HMatrix2D right)
-   // {
-        //return // your code here
-   // }
+    public static HMatrix2D operator -(HMatrix2D left, HMatrix2D right)
+    {
+        HMatrix2D result = new HMatrix2D();
+        for (int y = 0; y < 3; y++) // Loop through rows
+        {
+            for (int x = 0; x < 3; x++) // Loop through columns
+            {
+                result.entries[y, x] = left.entries[y, x] - right.entries[y, x];
+            }
+        }
+        return result;
+    }
 
-    //public static HMatrix2D operator *(HMatrix2D left, float scalar)
-   // {
-        //return // your code here
-   // }
+    public static HMatrix2D operator *(HMatrix2D matrix, float scalar)
+    {
+        HMatrix2D result = new HMatrix2D();
+        for (int y = 0; y < 3; y++) // Loop through rows
+        {
+            for (int x = 0; x < 3; x++) // Loop through columns
+            {
+                result.entries[y, x] = matrix.entries[y, x] * scalar;
+            }
+        }
+        return result;
+    }
 
     // Note that the second argument is a HVector2D object
     //
     //public static HVector2D operator *(HMatrix2D left, HVector2D right)
-   // {
-        //return // your code here
+    // {
+    //return // your code here
     //}
 
     // Note that the second argument is a HMatrix2D object
     //
     //public static HMatrix2D operator *(HMatrix2D left, HMatrix2D right)
     //{
-        //return new HMatrix2D
-       // (
-            /* 
-                00 01 02    00 xx xx
-                xx xx xx    10 xx xx
-                xx xx xx    20 xx xx
-                */
-            //left.Entries[0, 0] * right.Entries[0, 0] + left.Entries[0, 1] * right.Entries[1, 0] + left.Entries[0, 2] * right.Entries[2, 0],
+    //return new HMatrix2D
+    // (
+    /* 
+        00 01 02    00 xx xx
+        xx xx xx    10 xx xx
+        xx xx xx    20 xx xx
+        */
+    //left.Entries[0, 0] * right.Entries[0, 0] + left.Entries[0, 1] * right.Entries[1, 0] + left.Entries[0, 2] * right.Entries[2, 0],
 
-            /* 
-                00 01 02    xx 01 xx
-                xx xx xx    xx 11 xx
-                xx xx xx    xx 21 xx
-                */
-            //left.Entries[0, 0] * right.Entries[0, 1] + left.Entries[0, 1] * right.Entries[1, 1] + left.Entries[0, 2] * right.Entries[2, 1],
+    /* 
+        00 01 02    xx 01 xx
+        xx xx xx    xx 11 xx
+        xx xx xx    xx 21 xx
+        */
+    //left.Entries[0, 0] * right.Entries[0, 1] + left.Entries[0, 1] * right.Entries[1, 1] + left.Entries[0, 2] * right.Entries[2, 1],
 
-        // and so on for another 7 entries
-   // );
-  //  }
+    // and so on for another 7 entries
+    // );
+    //  }
 
-    //public static bool operator ==(HMatrix2D left, HMatrix2D right)
+    public static bool operator ==(HMatrix2D left, HMatrix2D right)
+    {
+        for (int y = 0; y < 3; y++) // Loop through rows
+        {
+            for (int x = 0; x < 3; x++) // Loop through columns
+            {
+                if (left.entries[y, x] != right.entries[y, x])
+                {
+                    return false; // If any element is not equal, return false
+                }
+            }
+        }
+        return true; // If all elements are equal, return true
+    }
+
+    public static bool operator !=(HMatrix2D left, HMatrix2D right)
+    {
+        for (int y = 0; y < 3; y++) // Loop through rows
+        {
+            for (int x = 0; x < 3; x++) // Loop through columns
+            {
+                if (left.entries[y, x] != right.entries[y, x])
+                {
+                    return true; // If any element is not equal, return true
+                }
+            }
+        }
+        return false; // If all elements are equal, return false
+    }
+
+
+    // public override bool Equals(object obj)
     //{
-        // your code here
-   // }
+    // your code here
+    // }
 
-   // public static bool operator !=(HMatrix2D left, HMatrix2D right)
+    // public override int GetHashCode()
     //{
-        // your code here
+    // your code here
+    // }
+
+    // public HMatrix2D transpose()
+    // {
+    //return // your code here
     //}
 
-   // public override bool Equals(object obj)
-    //{
-        // your code here
-   // }
-
-   // public override int GetHashCode()
-    //{
-        // your code here
-   // }
-
-   // public HMatrix2D transpose()
-   // {
-        //return // your code here
-    //}
-
-   // public float getDeterminant()
-   // {
-        //return // your code here
-   // }
+    // public float getDeterminant()
+    // {
+    //return // your code here
+    // }
 
     public void setIdentity()
     {
