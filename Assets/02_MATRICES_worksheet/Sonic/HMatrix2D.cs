@@ -8,7 +8,7 @@ public class HMatrix2D
 
     public HMatrix2D()
     {
-        // Initialize the matrix to the identity matrix using the setIdentity method
+        //initialize the matrix to the identity matrix using the setIdentity method
         setIdentity();
     }
 
@@ -257,16 +257,17 @@ public class HMatrix2D
 
     public void Print()
     {
-        Debug.Log("Matrix:");
-        for (int r = 0; r < 3; r++)
         {
-            string row = "";
-            for (int c = 0; c < 3; c++)
+            string result = "";
+            for (int r = 0; r < 3; r++)
             {
-                row += entries[r, c] + " ";
+                for (int c = 0; c < 3; c++)
+                {
+                    result += entries[r, c] + "  ";
+                }
+                result += "\n";
             }
-            Debug.Log(row);
+            Debug.Log(result);
         }
     }
-
 }

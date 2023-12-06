@@ -61,7 +61,6 @@ public class TransformMesh : MonoBehaviour
         transformMatrix = fromOriginMatrix * rotateMatrix * toOriginMatrix;
 
         Transform();
-        Debug.Log(transformMatrix);
     }
 
     private void Transform()
