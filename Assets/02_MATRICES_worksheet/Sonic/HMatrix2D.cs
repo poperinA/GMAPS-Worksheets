@@ -241,11 +241,11 @@ public class HMatrix2D
         setIdentity();
 
         //convert degrees to radians
-        float rad = rotDeg * Mathf.Deg2Rad * rotDeg;
+        float rad = rotDeg * Mathf.Deg2Rad;
 
         //entries set based on the cosine and sine of the rotation angle
         entries[0, 0] = Mathf.Cos(rad);
-        entries[0, 1] =  Mathf.Sin(rad);
+        entries[0, 1] = -Mathf.Sin(rad);
         entries[1, 0] = Mathf.Sin(rad);
         entries[1, 1] = Mathf.Cos(rad);
     }

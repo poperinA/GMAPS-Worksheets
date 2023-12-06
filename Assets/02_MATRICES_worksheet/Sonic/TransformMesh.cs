@@ -21,36 +21,47 @@ public class TransformMesh : MonoBehaviour
         meshManager = GetComponent<MeshManager>();
         pos = new HVector2D(gameObject.transform.position.x, gameObject.transform.position.y);
 
-        // Your code here
+        Translate(1f,1f);
+        Rotate(45f);
     }
-
 
     void Translate(float x, float y)
     {
+
+        // Step 1: set the transform matrix to identity
         transformMatrix.setIdentity();
-        //code.SetTranslationMatrix(code);
+
+        // Step 2: apply translation
+        HMatrix2D translationMatrix = new HMatrix2D();
+        translationMatrix.setTranslationMat(x, y);
+
+        // Step 3: combine the matrices
+        transformMatrix = translationMatrix;
+
+        // Step 4: apply the transformation to the vertices
         Transform();
 
-        pos = //code * pos;
+        // Step 5: update the object's position
+        pos = translationMatrix * pos;
     }
 
     void Rotate(float angle)
     {
-        transformMatrix.setIdentity();
-
-        // Step 1: move to the origin
+        // Step 1: Move to origin
         toOriginMatrix.setTranslationMat(-pos.x, -pos.y);
 
-        // Step 2: rotate
+        // Step 2: Rotate at origin
         rotateMatrix.setRotationMat(angle);
 
-        // Step 3: move back from the origin
+        // Step 3: Move back from orgin
         fromOriginMatrix.setTranslationMat(pos.x, pos.y);
 
-        // Step 4: combine the matrices
+        // Step 4: Combine the matrices
+        transformMatrix.setIdentity();
         transformMatrix = fromOriginMatrix * rotateMatrix * toOriginMatrix;
 
-       Transform();
+        Transform();
+        Debug.Log(transformMatrix);
     }
 
     private void Transform()
