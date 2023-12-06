@@ -18,14 +18,13 @@ public class HMatrix2D
         {
             for (int x = 0; x < 3; x++) // Do for each column
             {
-                entries[y, x] = multiArray[y, x]; // Filling the entries with corresponding values from multiArray
+                entries[y, x] = multiArray[y, x]; // Filling the entries values from multiArray
             }
         }
     }
 
     public HMatrix2D(float m00, float m01, float m02, float m10, float m11, float m12, float m20, float m21, float m22)
     {
-        // Initialize the matrix with individual elements
         entries = new float[3, 3]
         {
             {m00, m01, m02},
@@ -74,35 +73,78 @@ public class HMatrix2D
     }
 
     // Note that the second argument is a HVector2D object
-    //
-    //public static HVector2D operator *(HMatrix2D left, HVector2D right)
-    // {
-    //return // your code here
-    //}
+    public static HVector2D operator *(HMatrix2D left, HVector2D right)
+    {
+        float resultX = left.entries[0, 0] * right.x + left.entries[0, 1] * right.y + left.entries[0, 2];
+        float resultY = left.entries[1, 0] * right.x + left.entries[1, 1] * right.y + left.entries[1, 2];
+
+        return new HVector2D(resultX, resultY);
+    }
+
 
     // Note that the second argument is a HMatrix2D object
-    //
-    //public static HMatrix2D operator *(HMatrix2D left, HMatrix2D right)
-    //{
-    //return new HMatrix2D
-    // (
-    /* 
-        00 01 02    00 xx xx
-        xx xx xx    10 xx xx
-        xx xx xx    20 xx xx
-        */
-    //left.Entries[0, 0] * right.Entries[0, 0] + left.Entries[0, 1] * right.Entries[1, 0] + left.Entries[0, 2] * right.Entries[2, 0],
+    public static HMatrix2D operator *(HMatrix2D left, HMatrix2D right)
+    {
+        return new HMatrix2D(
 
-    /* 
-        00 01 02    xx 01 xx
-        xx xx xx    xx 11 xx
-        xx xx xx    xx 21 xx
-        */
-    //left.Entries[0, 0] * right.Entries[0, 1] + left.Entries[0, 1] * right.Entries[1, 1] + left.Entries[0, 2] * right.Entries[2, 1],
 
-    // and so on for another 7 entries
-    // );
-    //  }
+            left.entries[0, 0] * right.entries[0, 0] + left.entries[0, 1] * right.entries[1, 0] + left.entries[0, 2] * right.entries[2, 0],
+            /* 
+            00 01 02    00 xx xx
+            xx xx xx    10 xx xx
+            xx xx xx    20 xx xx
+            */
+            left.entries[0, 0] * right.entries[0, 1] + left.entries[0, 1] * right.entries[1, 1] + left.entries[0, 2] * right.entries[2, 1],
+            /* 
+             00 01 02    xx 01 xx
+             xx xx xx    xx 11 xx
+             xx xx xx    xx 21 xx
+             */
+            left.entries[0, 0] * right.entries[0, 2] + left.entries[0, 1] * right.entries[1, 2] + left.entries[0, 2] * right.entries[2, 2],
+            /* 
+            00 01 02    xx xx 02
+            xx xx xx    xx xx 12
+            xx xx xx    xx xx 22
+            */
+            left.entries[1, 0] * right.entries[0, 0] + left.entries[1, 1] * right.entries[1, 0] + left.entries[1, 2] * right.entries[2, 0],
+            /* 
+            10 11 12    00 01 02
+            xx xx xx    10 xx xx
+            xx xx xx    20 xx xx
+            */
+            left.entries[1, 0] * right.entries[0, 1] + left.entries[1, 1] * right.entries[1, 1] + left.entries[1, 2] * right.entries[2, 1],
+            /* 
+            10 11 12    xx 01 xx
+            xx xx xx    xx 11 xx
+            xx xx xx    xx 21 xx
+            */
+            left.entries[1, 0] * right.entries[0, 2] + left.entries[1, 1] * right.entries[1, 2] + left.entries[1, 2] * right.entries[2, 2],
+            /* 
+            10 11 12    xx xx 02
+            xx xx xx    xx xx 12
+            xx xx xx    xx xx 22
+            */
+            left.entries[2, 0] * right.entries[0, 0] + left.entries[2, 1] * right.entries[1, 0] + left.entries[2, 2] * right.entries[2, 0],
+            /* 
+            20 21 22    00 01 02
+            xx xx xx    10 xx xx
+            xx xx xx    20 xx xx
+            */
+            left.entries[2, 0] * right.entries[0, 1] + left.entries[2, 1] * right.entries[1, 1] + left.entries[2, 2] * right.entries[2, 1],
+            /* 
+            20 21 22    xx 01 xx
+            xx xx xx    xx 11 xx
+            xx xx xx    xx 21 xx
+            */
+            left.entries[2, 0] * right.entries[0, 2] + left.entries[2, 1] * right.entries[1, 2] + left.entries[2, 2] * right.entries[2, 2]
+        /* 
+        20 21 22    xx xx 02
+        xx xx xx    xx xx 12
+        xx xx xx    xx xx 22
+        */
+        );
+    }
+
 
     public static bool operator ==(HMatrix2D left, HMatrix2D right)
     {
@@ -160,17 +202,17 @@ public class HMatrix2D
 
         //for (int y = 0; y < 3; y++)
         //{
-            //for (int x = 0; x < 3; x++)
-            //{
-                //if (x == y)
-                //{
-                   // entries[y, x] = 1;
-               // }
-                //else
-               // {
-                   // entries[y, x] = 0;
-               // }
-           // }
+        //for (int x = 0; x < 3; x++)
+        //{
+        //if (x == y)
+        //{
+        // entries[y, x] = 1;
+        // }
+        //else
+        // {
+        // entries[y, x] = 0;
+        // }
+        // }
         //}
 
         //ternary operator
