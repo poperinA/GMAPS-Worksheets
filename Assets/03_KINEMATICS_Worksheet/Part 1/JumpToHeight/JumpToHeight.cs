@@ -1,37 +1,38 @@
-// using System.Collections;
-// using System.Collections.Generic;
-// using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-// public class JumpToHeight : MonoBehaviour
-// {
-//     public float Height = 1f;
-//     Rigidbody rb;
+public class JumpToHeight : MonoBehaviour
+{
+    public float Height = 1f;
+    Rigidbody rb;
 
-//     private void Start()
-//     {
-//         rb = /*your code here*/;
-//     }
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
 
-//     void Jump()
-//     {
-//         // v*v = u*u + 2as
-//         // u*u = v*v - 2as
-//         // u = sqrt(v*v - 2as)
-//         // v = 0, u = ?, a = Physics.gravity, s = Height
+    void Jump()
+    {
+        // v*v = u*u + 2as
+        // u*u = v*v - 2as
+        // u = sqrt(v*v - 2as)
+        // v = 0, u = ?, a = Physics.gravity, s = Height
 
-//         float u = Mathf.Sqrt(/*your code here*/);
-//         rb.velocity = new Vector3(/*your code here*/);
 
-//         //float jumpForce = Mathf.Sqrt(-2 * Physics2D.gravity.y * Height);
-//         //rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
-//     }
+        //calculate the initial velocity (u) needed to reach the specified jump height using an equation: square root of -2 * gravitational acceleration * height
+        float u = Mathf.Sqrt(-2 * Physics.gravity.y * Height);
 
-//     private void Update()
-//     {
-//         if(Input.GetKeyDown(KeyCode.Space))
-//         {
-//             /*your code here*/();
-//         }
-//     }
-// }
+        //sets the Rigidbody's velocity to the calculated one
+        rb.velocity = new Vector3(0, u, 0);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Jump();
+        }
+    }
+}
 
