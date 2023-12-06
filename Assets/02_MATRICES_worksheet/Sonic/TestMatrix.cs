@@ -63,12 +63,10 @@ public class TestMatrix : MonoBehaviour
 
         //test matrix & vector multiplication
 
-        mat1.setIdentity(); //set mat1 to the identity matrix (to test)
-        /*
-        1 0 0
-        0 1 0
-        0 0 1
-        */
+        mat1 = new HMatrix2D //3x3 matrix
+            (1, 2, 3,
+             4, 5, 6,
+             7, 8, 9);
 
         vec1 = new HVector2D(1, 2); //create a vector with values 1 and 2 (considered as a 2x1 matrix)
 
