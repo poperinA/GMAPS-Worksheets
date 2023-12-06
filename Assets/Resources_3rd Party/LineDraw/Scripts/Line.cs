@@ -119,5 +119,6 @@ public class Line : MonoBehaviour
     public void EnableDrawing(bool drawn)
     {
         lineRenderer.enabled = drawn;
-    }
+		//Debug.Log($"EnableDrawing called. LineRenderer enabled: {drawn}");
+	}
 }
