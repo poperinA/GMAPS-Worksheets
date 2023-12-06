@@ -227,12 +227,27 @@ public class HMatrix2D
 
     public void setTranslationMat(float transX, float transY)
     {
-        // your code here
+        //initializing the matrix as indentity matrix
+        setIdentity();
+
+        //setting the translation matrix entries
+        entries[0, 2] = transX; //translate in the x direction
+        entries[1, 2] = transY; //translate in the y direction
     }
 
     public void setRotationMat(float rotDeg)
     {
-        // your code here
+        //initializing the matrix as indentity matrix
+        setIdentity();
+
+        //convert degrees to radians
+        float rad = rotDeg * Mathf.Deg2Rad * rotDeg;
+
+        //entries set based on the cosine and sine of the rotation angle
+        entries[0, 0] = Mathf.Cos(rad);
+        entries[0, 1] =  Mathf.Sin(rad);
+        entries[1, 0] = Mathf.Sin(rad);
+        entries[1, 1] = Mathf.Cos(rad);
     }
 
     public void setScalingMat(float scaleX, float scaleY)
