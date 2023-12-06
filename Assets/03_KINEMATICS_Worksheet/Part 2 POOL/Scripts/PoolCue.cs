@@ -40,6 +40,7 @@ public class PoolCue : MonoBehaviour
             //update the velocity of the white ball.
             HVector2D v = new HVector2D(drawnLine.end.x - drawnLine.start.x, drawnLine.end.y - drawnLine.start.y);
             ball.Velocity = v;
+            //print out the velocity
             Debug.Log($"Ball Velocity: X = {ball.Velocity.x}, Y = {ball.Velocity.y}");
 
             drawnLine = null; // End line drawing            

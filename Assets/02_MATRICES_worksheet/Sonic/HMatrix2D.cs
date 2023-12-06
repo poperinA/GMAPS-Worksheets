@@ -18,13 +18,14 @@ public class HMatrix2D
         {
             for (int x = 0; x < 3; x++) // Do for each column
             {
-                entries[y, x] = multiArray[y, x]; // Filling the entries values from multiArray
+                entries[y, x] = multiArray[y, x]; //filling the values from multiArray
             }
         }
     }
 
     public HMatrix2D(float m00, float m01, float m02, float m10, float m11, float m12, float m20, float m21, float m22)
     {
+        //creating a new 3x3 matrix and initializing it with the provided values
         entries = new float[3, 3]
         {
             {m00, m01, m02},
@@ -40,6 +41,7 @@ public class HMatrix2D
         {
             for (int x = 0; x < 3; x++) // Loop thru columns
             {
+                //add corresponding elements from left and right matrices
                 result.entries[y, x] = left.entries[y, x] + right.entries[y, x];
             }
         }
@@ -53,6 +55,7 @@ public class HMatrix2D
         {
             for (int x = 0; x < 3; x++) // Loop through columns
             {
+                //subtract corresponding elements from left and right matrices
                 result.entries[y, x] = left.entries[y, x] - right.entries[y, x];
             }
         }
@@ -66,6 +69,7 @@ public class HMatrix2D
         {
             for (int x = 0; x < 3; x++) // Loop through columns
             {
+                //multiply each element of the matrix by the scalar
                 result.entries[y, x] = matrix.entries[y, x] * scalar;
             }
         }
@@ -75,6 +79,7 @@ public class HMatrix2D
     // Note that the second argument is a HVector2D object
     public static HVector2D operator *(HMatrix2D left, HVector2D right)
     {
+        //multiply each matrix row element with the corresponding vector component
         float resultX = left.entries[0, 0] * right.x + left.entries[0, 1] * right.y + left.entries[0, 2];
         float resultY = left.entries[1, 0] * right.x + left.entries[1, 1] * right.y + left.entries[1, 2];
 
@@ -137,11 +142,11 @@ public class HMatrix2D
             xx xx xx    xx 21 xx
             */
             left.entries[2, 0] * right.entries[0, 2] + left.entries[2, 1] * right.entries[1, 2] + left.entries[2, 2] * right.entries[2, 2]
-        /* 
-        20 21 22    xx xx 02
-        xx xx xx    xx xx 12
-        xx xx xx    xx xx 22
-        */
+            /* 
+            20 21 22    xx xx 02
+            xx xx xx    xx xx 12
+            xx xx xx    xx xx 22
+            */
         );
     }
 
@@ -152,6 +157,7 @@ public class HMatrix2D
         {
             for (int x = 0; x < 3; x++) // Loop through columns
             {
+                //compares each element of the matrices with the other
                 if (left.entries[y, x] != right.entries[y, x])
                 {
                     return false; // If any element is not equal, return false
@@ -167,6 +173,7 @@ public class HMatrix2D
         {
             for (int x = 0; x < 3; x++) // Loop through columns
             {
+                //compares each element of the matrices with the other
                 if (left.entries[y, x] != right.entries[y, x])
                 {
                     return true; // If any element is not equal, return true
@@ -199,30 +206,23 @@ public class HMatrix2D
 
     public void setIdentity()
     {
-
-        //for (int y = 0; y < 3; y++)
-        //{
-        //for (int x = 0; x < 3; x++)
-        //{
-        //if (x == y)
-        //{
-        // entries[y, x] = 1;
-        // }
-        //else
-        // {
-        // entries[y, x] = 0;
-        // }
-        // }
-        //}
-
-        //ternary operator
+        //for each row
         for (int y = 0; y < 3; y++)
         {
+            //for each col
             for (int x = 0; x < 3; x++)
             {
-                entries[y, x] = (x == y) ? 1 : 0;
+                //if diagonal, set to 1 else 0
+                if (x == y)
+                {
+                    entries[y, x] = 1;
+                }
+                else
+                {
+                    entries[y, x] = 0;
+                }
             }
-        }
+        } 
     }
 
     public void setTranslationMat(float transX, float transY)
@@ -242,15 +242,16 @@ public class HMatrix2D
 
     public void Print()
     {
-        string result = "";
+        Debug.Log("Matrix:");
         for (int r = 0; r < 3; r++)
         {
+            string row = "";
             for (int c = 0; c < 3; c++)
             {
-                result += entries[r, c] + "  ";
+                row += entries[r, c] + " ";
             }
-            result += "\n";
+            Debug.Log(row);
         }
-        Debug.Log(result);
     }
+
 }
